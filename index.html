@@ -4,18 +4,33 @@
     <title>跳转到 App</title>
     <script>
         window.onload = function() {
-            // 尝试通过 Universal Links 跳转到 App
-            window.location.href = "https://steam-auth-proxy.pages.dev/specific-path";
+            // 获取当前页面的查询参数和路径
+            const currentPath = window.location.pathname; // 当前路径，例如 /current-path
+            const queryParams = window.location.search;  // 查询参数，例如 ?param1=value1&param2=value2
 
-            // 如果 Universal Links 不生效，尝试使用 Custom URL Scheme
-            setTimeout(function() {
-                window.location.href = "myapp://specific-path";
-            }, 1000); // 延迟 1 秒
+            // 构造目标的 Universal Links URL 和 Custom URL Scheme
+            const universalLinkUrl = "https://steam-auth-proxy.pages.dev" + currentPath + queryParams;
+            // const customSchemeUrl = "myapp://" + currentPath + queryParams;
+
+            // 尝试通过 Universal Links 跳转到 App
+            window.location.href = universalLinkUrl;
+
+            // // 如果 Universal Links 不生效，尝试使用 Custom URL Scheme
+            // setTimeout(function() {
+            //     window.location.href = customSchemeUrl;
+            // }, 1000); // 延迟 1 秒
         };
     </script>
 </head>
 <body>
     <h1>正在跳转到 App...</h1>
-    <p>如果未跳转，请 <a href="myapp://specific-path">点击这里</a>。</p>
+    <p>如果未跳转，请 <a id="fallback-link" href="#">点击这里</a></p>
+    <script>
+        // 在页面中提供备用链接，用户可以手动点击以跳转到 App
+        const fallbackLink = document.getElementById("fallback-link");
+        const currentPath = window.location.pathname;
+        const queryParams = window.location.search;
+        fallbackLink.href = "myapp://" + currentPath + queryParams;
+    </script>
 </body>
 </html>
