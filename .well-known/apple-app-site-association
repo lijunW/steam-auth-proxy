@@ -1,4 +1,17 @@
 {
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appIDs": [
+                    "898BW4N27D.com.duringfer.ccab"
+                ],
+                "paths": [
+                    "*"
+                ]
+            }
+        ]
+    },
     "webcredentials": {
         "apps": [
             "898BW4N27D.com.duringfer.ccab"
