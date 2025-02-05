@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Steam Login Redirect</title>
+    <script>
+        // 1. 提取 Steam 回调的 OpenID 参数
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // 2. 构建重定向到 App 的 URL（替换 YOUR_APP_SCHEME）
+        const appScheme = 'com.yourapp.steamauth'; // 你的应用 URI Scheme
+        let redirectUrl = `${appScheme}://callback?${urlParams.toString()}`;
+
+        // 3. 尝试自动重定向（适用于移动端 WebView）
+        window.location.href = redirectUrl;
+
+        // 4. 备用方案：显示手动点击链接（防止浏览器拦截）
+        setTimeout(() => {
+            document.getElementById('manualRedirect').href = redirectUrl;
+            document.getElementById('manualRedirect').style.display = 'block';
+        }, 1000);
+    </script>
+</head>
+<body>
+    <p>正在跳转到应用...</p>
+    <a id="manualRedirect" style="display: none;">点击此处手动跳转</a>
+</body>
+</html>
